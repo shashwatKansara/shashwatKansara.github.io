@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashwat Kansara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Reset & Tokens ─────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #f5f7fc;
+            --bg-card:      #ffffff;
+            --text-primary: #111827;
+            --text-muted:   #6b7280;
+            --accent:       #3b82f6;
+            --accent-dark:  #1d4ed8;
+            --accent-light: rgba(59,130,246,0.08);
+            --purple:       #8b5cf6;
+            --border:       #e5e7eb;
+            --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md:    0 4px 12px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.04);
+            --shadow-lg:    0 20px 40px rgba(0,0,0,0.09), 0 8px 16px rgba(0,0,0,0.04);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── Navbar ─────────────────────────────────────────── */
+        .navbar {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            padding: 1.1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245,247,252,0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .navbar.scrolled {
+            border-bottom-color: var(--border);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.05);
+        }
+        .nav-logo {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* ── Hero ───────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #f0f4ff 0%, #f5f7fc 40%, #edf3ff 100%);
+        }
+
+        /* subtle grid overlay */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            padding: 0 1.5rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s ease forwards 0.3s;
+        }
+
+        .hero-name {
+            font-size: clamp(2.8rem, 9vw, 6.5rem);
+            font-weight: 800;
+            letter-spacing: -0.045em;
+            line-height: 1.0;
+            background: linear-gradient(130deg, #111827 0%, var(--accent) 55%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s ease forwards 0.5s;
+        }
+
+        .hero-subtitle {
+            margin-top: 1.1rem;
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s ease forwards 0.75s;
+        }
+
+        .hero-cta {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.7s ease forwards 1s;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.45rem;
+            opacity: 0;
+            animation: fadeUp 0.7s ease forwards 1.3s;
+        }
+        .scroll-hint-text {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .scroll-hint-chevron {
+            width: 16px;
+            height: 16px;
+            border-right: 2px solid var(--text-muted);
+            border-bottom: 2px solid var(--text-muted);
+            transform: rotate(45deg);
+            animation: chevronBounce 1.6s ease-in-out infinite;
+        }
+
+        /* ── Floating Objects ─────────────────────────────────
+           Two-layer approach:
+             .float-wrapper  → JS sets translate for mouse parallax
+             .float-inner    → CSS animation for vertical bobbing
+        ────────────────────────────────────────────────────── */
+        .floating-objects {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .float-wrapper { position: absolute; }
+
+        .float-inner { opacity: 0.13; }
+
+        /* Positions */
+        .fw-1  { top:  8%; left:  4%; }
+        .fw-2  { top: 12%; right: 6%; }
+        .fw-3  { top: 33%; left:  2%; }
+        .fw-4  { top: 58%; left:  7%; }
+        .fw-5  { top: 72%; right: 4%; }
+        .fw-6  { top: 48%; right: 10%; }
+        .fw-7  { top: 18%; left: 22%; }
+        .fw-8  { top: 22%; right: 21%; }
+        .fw-9  { top: 68%; left: 17%; }
+        .fw-10 { top: 78%; right: 18%; }
+
+        /* Staggered bobbing per wrapper */
+        .fw-1  .float-inner { animation: bob 7.0s ease-in-out infinite 0.0s; }
+        .fw-2  .float-inner { animation: bob 9.0s ease-in-out infinite -2.0s; }
+        .fw-3  .float-inner { animation: bob 6.5s ease-in-out infinite -4.0s; }
+        .fw-4  .float-inner { animation: bob 8.0s ease-in-out infinite -1.0s; }
+        .fw-5  .float-inner { animation: bob 10.0s ease-in-out infinite -3.0s; }
+        .fw-6  .float-inner { animation: bob 7.5s ease-in-out infinite -5.0s; }
+        .fw-7  .float-inner { animation: bob 8.5s ease-in-out infinite -2.5s; }
+        .fw-8  .float-inner { animation: bob 6.0s ease-in-out infinite -1.5s; }
+        .fw-9  .float-inner { animation: bob 9.5s ease-in-out infinite -3.5s; }
+        .fw-10 .float-inner { animation: bob 7.2s ease-in-out infinite -0.5s; }
+
+        /* ── Page Sections ───────────────────────────────────── */
+        .section-wrap {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.7rem, 4vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .section-header { margin-bottom: 3rem; }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ── Reveal on scroll ────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Buttons ─────────────────────────────────────────── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 9px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.22s ease;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(59,130,246,0.38);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+        }
+        .btn-outline:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1.5px solid var(--border);
+        }
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── About Me Section ───────────────────────────────── */
+        .aboutme-section { background: var(--bg); }
+
+        .aboutme-heading {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 0.7rem;
+        }
+        .aboutme-heading .aboutme-accent {
+            background: linear-gradient(120deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .aboutme-heading-sub {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+        }
+        .aboutme-placeholder {
+            background: var(--bg-card);
+            border: 1.5px dashed var(--border);
+            border-radius: 18px;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* ── About / Self-Promo Section ─────────────────────── */
+        .about-section {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .about-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .about-headline {
+            font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 1.4rem;
+        }
+        .about-headline .highlight {
+            background: linear-gradient(120deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-body {
+            font-size: 0.975rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+        }
+        .about-body p + p { margin-top: 0.9rem; }
+
+        .about-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+            box-shadow: 0 4px 18px rgba(59,130,246,0.3);
+        }
+        .about-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(59,130,246,0.42);
+            opacity: 0.93;
+        }
+        .about-cta svg { transition: transform 0.25s ease; }
+        .about-cta:hover svg { transform: translateY(3px); }
+
+        /* Right-side skill cards grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.35rem 1.2rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(59,130,246,0.25);
+        }
+
+        .skill-card-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-card-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .skill-card-desc {
+            font-size: 0.77rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 860px) {
+            .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── Project Cards ───────────────────────────────────── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.4rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.8rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 18px 18px 0 0;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(59,130,246,0.25);
+        }
+        .project-card:hover::after { opacity: 1; }
+
+        .project-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 0.18rem 0.55rem;
+            border-radius: 100px;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 1.35rem;
+        }
+
+        .project-actions { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+
+        /* ── Research Paper Cards ────────────────────────────── */
+        .papers-list { display: flex; flex-direction: column; gap: 1.2rem; }
+
+        .paper-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.75rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .paper-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(59,130,246,0.25);
+        }
+
+        .paper-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.06em;
+            color: var(--border);
+            line-height: 1;
+            min-width: 3rem;
+            user-select: none;
+        }
+
+        .paper-meta {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.35rem;
+        }
+
+        .paper-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.45;
+            margin-bottom: 0.35rem;
+        }
+
+        .paper-authors {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .paper-footer { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+
+        .paper-venue {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 0.16rem 0.5rem;
+            border-radius: 100px;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Contact Section ─────────────────────────────────── */
+        .contacts-section {
+            background: linear-gradient(140deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
+            padding: 6rem 2rem 4rem;
+        }
+
+        .contacts-inner { max-width: 1100px; margin: 0 auto; }
+
+        .contacts-section .section-label { color: rgba(255,255,255,0.4); }
+        .contacts-section .section-title { color: #fff; }
+
+        .contacts-sub {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.1rem;
+            margin-top: 2.5rem;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.4rem;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.28s ease;
+            backdrop-filter: blur(10px);
+        }
+        .contact-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.22);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .contact-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+        .contact-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #fff;
+            margin-top: 0.1rem;
+        }
+
+        /* ── Resources Section ───────────────────────────────── */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(59,130,246,0.25);
+        }
+
+        .resource-preview {
+            width: 100%;
+            height: 320px;
+            background: #f0f2f8;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .resource-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+        /* Overlay so the whole card is the click target, not just the footer */
+        .resource-card-link {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .resource-footer {
+            padding: 1.1rem 1.3rem 1.3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            flex: 1;
+        }
+
+        .resource-type {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 0.15rem 0.5rem;
+            border-radius: 100px;
+            align-self: flex-start;
+        }
+
+        .resource-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .resource-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .resource-open-btn {
+            margin-top: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 0.38rem 0.8rem;
+            border-radius: 8px;
+            align-self: flex-start;
+            transition: background 0.2s, color 0.2s;
+        }
+        .resource-card:hover .resource-open-btn {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 4rem auto 0;
+            padding-top: 1.75rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.78rem;
+        }
+
+        /* ── Keyframes ───────────────────────────────────────── */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            35%       { transform: translateY(-18px) rotate(3deg); }
+            70%       { transform: translateY(-7px) rotate(-1.5deg); }
+        }
+
+        @keyframes chevronBounce {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50%       { transform: rotate(45deg) translateY(6px); }
+        }
+
+        /* ── Responsive ──────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .paper-card { flex-direction: column; gap: 0.6rem; }
+            .paper-number { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ NAVBAR ════════════════════════════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-logo">SK<span>.</span></div>
+    <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- ════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero" id="home">
+
+    <!-- Floating tech objects ───────────────────────────────────── -->
+    <div class="floating-objects" id="floatingObjects">
+
+        <!-- 1 · Laptop -->
+        <div class="float-wrapper fw-1">
+            <div class="float-inner">
+                <svg width="90" height="76" viewBox="0 0 90 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="9" y="5" width="72" height="48" rx="5" stroke="#3b82f6" stroke-width="2.5"/>
+                    <rect x="16" y="12" width="58" height="34" rx="2" fill="#3b82f6" fill-opacity="0.12"/>
+                    <line x1="25" y1="23" x2="43" y2="23" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+                    <line x1="25" y1="30" x2="58" y2="30" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+                    <line x1="25" y1="37" x2="50" y2="37" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+                    <path d="M0 57h90l-7 10H7L0 57z" stroke="#3b82f6" stroke-width="2" fill="none"/>
+                    <line x1="36" y1="57" x2="54" y2="57" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 2 · Code tag </> -->
+        <div class="float-wrapper fw-2">
+            <div class="float-inner">
+                <svg width="88" height="58" viewBox="0 0 88 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26 12 L6 29 L26 46" stroke="#3b82f6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M62 12 L82 29 L62 46" stroke="#3b82f6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="54" y1="8" x2="34" y2="50" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 3 · Circuit nodes -->
+        <div class="float-wrapper fw-3">
+            <div class="float-inner">
+                <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="6" fill="#3b82f6"/>
+                    <circle cx="80" cy="16" r="6" fill="#3b82f6"/>
+                    <circle cx="48" cy="48" r="9" fill="#3b82f6" fill-opacity="0.6"/>
+                    <circle cx="16" cy="80" r="6" fill="#3b82f6"/>
+                    <circle cx="80" cy="80" r="6" fill="#3b82f6"/>
+                    <line x1="16" y1="16" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="80" y1="16" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="16" y1="80" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="80" y1="80" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="16" y1="16" x2="80" y2="16" stroke="#3b82f6" stroke-width="1" opacity="0.3"/>
+                    <line x1="16" y1="80" x2="80" y2="80" stroke="#3b82f6" stroke-width="1" opacity="0.3"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 4 · Terminal window -->
+        <div class="float-wrapper fw-4">
+            <div class="float-inner">
+                <svg width="110" height="76" viewBox="0 0 110 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="108" height="74" rx="9" stroke="#3b82f6" stroke-width="2"/>
+                    <rect x="1" y="1" width="108" height="22" rx="9" fill="#3b82f6" fill-opacity="0.1"/>
+                    <circle cx="16" cy="12" r="4.5" fill="#3b82f6" opacity="0.6"/>
+                    <circle cx="30" cy="12" r="4.5" fill="#3b82f6" opacity="0.4"/>
+                    <circle cx="44" cy="12" r="4.5" fill="#3b82f6" opacity="0.25"/>
+                    <text x="14" y="46" font-family="monospace" font-size="11" fill="#3b82f6" opacity="0.75">$ python main.py</text>
+                    <text x="14" y="60" font-family="monospace" font-size="9.5" fill="#3b82f6" opacity="0.4">&#9654; running model...</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 5 · Atom / molecule -->
+        <div class="float-wrapper fw-5">
+            <div class="float-inner">
+                <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#8b5cf6" stroke-width="2" opacity="0.6" transform="rotate(60 42 42)"/>
+                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#3b82f6" stroke-width="2" opacity="0.55" transform="rotate(120 42 42)"/>
+                    <circle cx="42" cy="42" r="6" fill="#3b82f6"/>
+                    <circle cx="42" cy="4"  r="3.5" fill="#8b5cf6" opacity="0.8"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 6 · Curly braces {} -->
+        <div class="float-wrapper fw-6">
+            <div class="float-inner">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28 8 C18 8 18 18 18 24 C18 30 10 32 10 36 C10 40 18 42 18 48 C18 54 18 64 28 64" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M44 8 C54 8 54 18 54 24 C54 30 62 32 62 36 C62 40 54 42 54 48 C54 54 54 64 44 64" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" fill="none"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 7 · Gear -->
+        <div class="float-wrapper fw-7">
+            <div class="float-inner">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="36" cy="36" r="13" stroke="#3b82f6" stroke-width="2.5"/>
+                    <circle cx="36" cy="36" r="5"  fill="#3b82f6" fill-opacity="0.4"/>
+                    <rect x="32.5" y="3"  width="7" height="10" rx="2" fill="#3b82f6" opacity="0.6"/>
+                    <rect x="32.5" y="59" width="7" height="10" rx="2" fill="#3b82f6" opacity="0.6"/>
+                    <rect x="3"    y="32.5" width="10" height="7" rx="2" fill="#3b82f6" opacity="0.6"/>
+                    <rect x="59"   y="32.5" width="10" height="7" rx="2" fill="#3b82f6" opacity="0.6"/>
+                    <rect x="11"   y="10"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(45 15 15)"/>
+                    <rect x="53"   y="10"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(-45 57 15)"/>
+                    <rect x="11"   y="52"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(-45 15 57)"/>
+                    <rect x="53"   y="52"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(45 57 57)"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 8 · Database cylinder -->
+        <div class="float-wrapper fw-8">
+            <div class="float-inner">
+                <svg width="64" height="84" viewBox="0 0 64 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="32" cy="13" rx="27" ry="10" stroke="#3b82f6" stroke-width="2"/>
+                    <line x1="5"  y1="13" x2="5"  y2="61" stroke="#3b82f6" stroke-width="2"/>
+                    <line x1="59" y1="13" x2="59" y2="61" stroke="#3b82f6" stroke-width="2"/>
+                    <ellipse cx="32" cy="61" rx="27" ry="10" stroke="#3b82f6" stroke-width="2"/>
+                    <ellipse cx="32" cy="37" rx="27" ry="10" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 9 · Network graph -->
+        <div class="float-wrapper fw-9">
+            <div class="float-inner">
+                <svg width="80" height="68" viewBox="0 0 80 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="60" r="6"   fill="#3b82f6"/>
+                    <circle cx="10" cy="28" r="5"   fill="#3b82f6" opacity="0.6"/>
+                    <circle cx="70" cy="28" r="5"   fill="#3b82f6" opacity="0.6"/>
+                    <circle cx="40" cy="8"  r="5"   fill="#8b5cf6" opacity="0.65"/>
+                    <circle cx="25" cy="48" r="3.5" fill="#3b82f6" opacity="0.4"/>
+                    <circle cx="55" cy="48" r="3.5" fill="#3b82f6" opacity="0.4"/>
+                    <line x1="40" y1="60" x2="10" y2="28" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="40" y1="60" x2="70" y2="28" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="10" y1="28" x2="40" y2="8"  stroke="#3b82f6" stroke-width="1.4" opacity="0.4"/>
+                    <line x1="70" y1="28" x2="40" y2="8"  stroke="#3b82f6" stroke-width="1.4" opacity="0.4"/>
+                    <line x1="10" y1="28" x2="70" y2="28" stroke="#3b82f6" stroke-width="1.2" opacity="0.3"/>
+                    <line x1="40" y1="60" x2="25" y2="48" stroke="#3b82f6" stroke-width="1"   opacity="0.35"/>
+                    <line x1="40" y1="60" x2="55" y2="48" stroke="#3b82f6" stroke-width="1"   opacity="0.35"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 10 · Square brackets [] -->
+        <div class="float-wrapper fw-10">
+            <div class="float-inner">
+                <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 8 L8 8 L8 60 L22 60"  stroke="#3b82f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M46 8 L60 8 L60 60 L46 60" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+            </div>
+        </div>
+
+    </div><!-- /floating-objects -->
+
+    <!-- Hero text -->
+    <div class="hero-content">
+        <p class="hero-eyebrow">I am</p>
+        <h1 class="hero-name">Shashwat Kansara</h1>
+        <p class="hero-subtitle">Welcome to my personal website!</p>
+        <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact"  class="btn btn-ghost">Get in Touch</a>
+        </div>
+    </div>
+
+    <div class="scroll-hint">
+        <span class="scroll-hint-text">Scroll</span>
+        <div class="scroll-hint-chevron"></div>
+    </div>
+</section>
+
+<!-- ════════════════════════ ABOUT ME ══════════════════════════════ -->
+<section class="aboutme-section">
+    <div class="section-wrap">
+        <div class="reveal">
+            <h2 class="aboutme-heading">
+                About Me<br>
+            </h2>
+        </div>
+        <div class="aboutme-placeholder reveal">
+            ✏️ &nbsp; Studied in the International Baccalaureate Diploma Program, with a STEM-based interest. I am strongly interested 
+            in the fields of cloud security, quantitative finance, and international markets. I have built projects which are soon to be published, as due to academic integrity, it may take a while to post them. I regularly code and make effective resources for 
+            my viewers. Checkout the Resources section for more! 
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════ ABOUT / SELF-PROMO ════════════════════ -->
+<section class="about-section">
+    <div class="section-wrap">
+        <div class="about-inner">
+
+            <!-- Left — copy block -->
+            <div class="reveal">
+                <span class="about-eyebrow">What I Bring to the Table</span>
+                <h2 class="about-headline">
+                    I Build Digital Products That Are
+                    <span class="highlight">Fast, Secure &amp; Built to Scale.</span>
+                </h2>
+                <div class="about-body">
+                    <p>
+                        From consumer-facing interfaces to strengthened back-end systems, I develop
+                        full-stack web applications with a strong emphasis on
+                        <strong>hardened security</strong> — think rate-limiting, input
+                        sanitisation, role-based access control, and end-to-end encrypted data
+                        pipelines. Your users' data is never an afterthought.
+                    </p>
+                    <p>
+                        Database wise, I design schemas that are both
+                        <strong>quick and resilient against breakdowns </strong> — parameterised queries to
+                        minimize injection attacks and automated backups.
+                    </p>
+                    <p>
+                        I pair that technical rigour with a sharp eye for design: clean,
+                        responsive UIs that load fast, feel effortless, and leave a lasting
+                        impression — because a secure product should also be a beautiful one.
+                    </p>
+                </div>
+                <a href="#projects" class="about-cta">
+                    Checkout my Projects!
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Right — skill cards -->
+            <div class="skills-grid reveal">
+
+                <div class="skill-card">
+                    <div class="skill-card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <div class="skill-card-title">Hardened Security</div>
+                    <div class="skill-card-desc">Auth, RBAC, CSRF/XSS defence, encrypted payloads &amp; secure headers out of the box.</div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+                        </svg>
+                    </div>
+                    <div class="skill-card-title">Database Resilience</div>
+                    <div class="skill-card-desc">Injection-proof queries and indexed schemas &amp; automated backups.</div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="skill-card-title">Performance First</div>
+                    <div class="skill-card-desc">Optimised queries, minimized latency, &amp; sub-second response times.</div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                        </svg>
+                    </div>
+                    <div class="skill-card-title">Product-Grade UI</div>
+                    <div class="skill-card-desc">Attractive and responsive interfaces that convert visitors into clients.</div>
+                </div>
+
+            </div><!-- /skills-grid -->
+
+        </div><!-- /about-inner -->
+    </div>
+</section>
+
+<!-- ════════════════════════ PROJECTS ══════════════════════════════ -->
+<section id="projects">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <p class="section-label">Work</p>
+            <h2 class="section-title">Personal Projects</h2>
+        </div>
+
+        <div class="projects-grid">
+
+            <div class="project-card reveal">
+                <span class="project-tag">Physics</span>
+                <h3 class="project-title">(Coming Soon!)</h3>
+                <p class="project-desc"></p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-primary">
+                        Publishing Soon!
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#" class="btn btn-outline">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <span class="project-tag">Client-Requested Application</span>
+                <h3 class="project-title"> (Coming Soon!)</h3>
+                <p class="project-desc"></p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-primary">
+                        Publishing Soon!
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#" class="btn btn-outline">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <span class="project-tag">Data Science</span>
+                <h3 class="project-title">Project Name Three</h3>
+                <p class="project-desc">A brief description of this project. What problem does it solve, which technologies did you use, and what was the outcome?</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-primary">
+                        Publishing Soon!
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#" class="btn btn-outline">GitHub</a>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ RESEARCH ══════════════════════════════ -->
+<section id="research">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <p class="section-label">Publications</p>
+            <h2 class="section-title">Research Papers</h2>
+        </div>
+
+        <div class="papers-list">
+
+            <div class="paper-card reveal">
+                <div class="paper-number">01</div>
+                <div>
+                    <p class="paper-meta">2026 &middot; Mathematics Research Paper </p>
+                    <h3 class="paper-title"> (Publishing Soon!) </h3>
+                    <p class="paper-authors">Author: Shashwat Kansara</p>
+                    <div class="paper-footer">
+                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.18rem 0.65rem;">Read Paper</a> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-card reveal">
+                <div class="paper-number">02</div>
+                <div>
+                    <p class="paper-meta">2026 &middot; Cybersecurity and Quantitative Finance</p>
+                    <h3 class="paper-title">(Publishing Soon!) Convergence of Cybersecurity and Quantitative Finance</h3>
+                    <p class="paper-authors">Author: Shashwat Kansara</p>
+                    <div class="paper-footer">
+                        <span class="paper-venue">Conference / Journal Name</span>
+                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.18rem 0.65rem;">Read Paper</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-card reveal">
+                <div class="paper-number">03</div>
+                <div>
+                    <p class="paper-meta">2023 &middot; Workshop Paper</p>
+                    <h3 class="paper-title">(Publishing Soon!) Title of Your Third Research Paper Goes Here</h3>
+                    <p class="paper-authors">Shashwat Kansara, Co-Author Name, Co-Author Name, Co-Author Name</p>
+                    <div class="paper-footer">
+                        <span class="paper-venue">Conference / Journal Name</span>
+                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.18rem 0.65rem;">Read Paper</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════ RESOURCES ════════════════════════════ -->
+<section id="resources">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <p class="section-label">Academic</p>
+            <h2 class="section-title">Helpful Resources</h2>
+            <p style="margin-top:0.5rem;font-size:0.95rem;color:var(--text-muted);">
+                A curated collection of papers, guides, and references I find genuinely useful.
+            </p>
+        </div>
+
+        <div class="resources-grid">
+
+            <!-- Resource 1 -->
+            <div class="resource-card reveal">
+                <a href="YOUR_PDF_URL_1" target="_blank" rel="noopener noreferrer" class="resource-card-link">
+                    <div class="resource-preview">
+                        <iframe src="YOUR_PDF_URL_1" title="Resource 1 Preview"></iframe>
+                    </div>
+                    <div class="resource-footer">
+                        <span class="resource-type">Notes</span>
+                        <div class="resource-title">Topical Business Management</div>
+                        <div class="resource-desc">A short summary of Business Management Topics with summarized and nuanced notes.</div>
+                        <span class="resource-open-btn">
+                            Open PDF
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Resource 2 -->
+            <div class="resource-card reveal">
+                <a href="YOUR_PDF_URL_2" target="_blank" rel="noopener noreferrer" class="resource-card-link">
+                    <div class="resource-preview">
+                        <iframe src="YOUR_PDF_URL_2" title="Resource 2 Preview"></iframe>
+                    </div>
+                    <div class="resource-footer">
+                        <span class="resource-type">Computer Science</span>
+                        <div class="resource-title">Programming Sources</div>
+                        <div class="resource-desc">A concise programming reference covering core data structures and algorithms; including sorting, searching, merging, and array manipulation. More topics coming soon.</div>
+                        <span class="resource-open-btn">
+                            Open PDF
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Resource 3 -->
+            <div class="resource-card reveal">
+                <a href="YOUR_PDF_URL_3" target="_blank" rel="noopener noreferrer" class="resource-card-link">
+                    <div class="resource-preview">
+                        <iframe src="YOUR_PDF_URL_3" title="Resource 3 Preview"></iframe>
+                    </div>
+                    <div class="resource-footer">
+                        <span class="resource-type">Reference Guide</span>
+                        <div class="resource-title">Resource Title Three</div>
+                        <div class="resource-desc">A short note on why this resource is useful and what topic it covers.</div>
+                        <span class="resource-open-btn">
+                            Open PDF
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Resource 4 -->
+            <div class="resource-card reveal">
+                <a href="YOUR_PDF_URL_4" target="_blank" rel="noopener noreferrer" class="resource-card-link">
+                    <div class="resource-preview">
+                        <iframe src="YOUR_PDF_URL_4" title="Resource 4 Preview"></iframe>
+                    </div>
+                    <div class="resource-footer">
+                        <span class="resource-type">Textbook Chapter</span>
+                        <div class="resource-title">Resource Title Four</div>
+                        <div class="resource-desc">A short note on why this resource is useful and what topic it covers.</div>
+                        <span class="resource-open-btn">
+                            Open PDF
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════ CONTACT ═══════════════════════════════ -->
+<section class="contacts-section" id="contact">
+    <div class="contacts-inner">
+        <div class="section-header reveal">
+            <p class="section-label">Get in Touch</p>
+            <h2 class="section-title">Contact</h2>
+            <p class="contacts-sub">Feel free to reach out &mdash; I&rsquo;d love to connect.</p>
+        </div>
+
+        <div class="contacts-grid reveal">
+
+            <!-- ↓ Replace YOUR_LINKEDIN_URL with your full LinkedIn profile URL -->
+            <a href="https://www.linkedin.com/in/shashwat-kansara-653852343/" class="contact-card" target="_blank" rel="noopener noreferrer">
+                <div class="contact-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+                        <rect x="2" y="9" width="4" height="12"/>
+                        <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="contact-label">LinkedIn</div>
+                    <!-- ↓ Replace with your display name / handle -->
+                    <div class="contact-value">Shashwat Kansara</div>
+                </div>
+            </a>
+
+            <!-- ↓ Replace YOUR_GITHUB_URL with your GitHub profile URL -->
+            <a href="https://github.com/shashwatKansara" class="contact-card" target="_blank" rel="noopener noreferrer">
+                <div class="contact-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="contact-label">GitHub</div>
+                    <!-- ↓ Replace with your GitHub username -->
+                    <div class="contact-value">Shashwat Kansara</div>
+                </div>
+            </a>
+
+            <!-- ↓ Replace YOUR_EMAIL@EXAMPLE.COM with your actual email -->
+            <a href="mailto:shashwatkansara@gmail.com" class="contact-card" style="min-width: 3;">
+                <div class="contact-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="contact-label">Email</div>
+                    <!-- ↓ Replace with your display email -->
+                    <div class="contact-value">shashwatkansara@gmail.com</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 Shashwat Kansara &nbsp;&middot;&nbsp; Built with care</p>
+    </div>
+</section>
+
+<!-- ════════════════════════ SCRIPTS ═══════════════════════════════ -->
+<script>
+    /* ── Navbar shadow on scroll ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* ── Scroll-reveal via Intersection Observer ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (!entry.isIntersecting) return;
+            entry.target.style.transitionDelay = (i * 70) + 'ms';
+            entry.target.classList.add('visible');
+            revealObs.unobserve(entry.target);
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    /* ── Mouse parallax for floating objects ──
+       Each .float-wrapper gets a translate via JS (parallax layer).
+       The .float-inner child handles bobbing via CSS animation.
+       This keeps the two transforms on separate elements,
+       so they compose without overwriting each other.
+    ── */
+    const wrappers = Array.from(document.querySelectorAll('.float-wrapper'));
+    const depths   = wrappers.map((_, i) => ((i % 4) + 1) * 7);
+
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        targetX = (e.clientX / window.innerWidth  - 0.5) * 2;
+        targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+
+    (function tick() {
+        currentX += (targetX - currentX) * 0.06;
+        currentY += (targetY - currentY) * 0.06;
+        wrappers.forEach((w, i) => {
+            const d = depths[i];
+            w.style.transform = `translate(${currentX * d}px, ${currentY * d}px)`;
+        });
+        requestAnimationFrame(tick);
+    })();
+</script>
+
+</body>
+</html>
