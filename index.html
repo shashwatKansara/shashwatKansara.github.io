@@ -6,73 +6,101 @@
     <title>Shashwat Kansara</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* ── Reset & Tokens ─────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:           #f5f7fc;
+            --bg:           #f6f4ee;
             --bg-card:      #ffffff;
-            --text-primary: #111827;
-            --text-muted:   #6b7280;
-            --accent:       #3b82f6;
-            --accent-dark:  #1d4ed8;
-            --accent-light: rgba(59,130,246,0.08);
-            --purple:       #8b5cf6;
-            --border:       #e5e7eb;
-            --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md:    0 4px 12px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.04);
-            --shadow-lg:    0 20px 40px rgba(0,0,0,0.09), 0 8px 16px rgba(0,0,0,0.04);
+            --ink:          #15151a;
+            --ink-soft:     #3d3c42;
+            --muted:        #6f6d76;
+            --accent:       #d9ff4a;
+            --accent-deep:  #7f9a1f;
+            --border:       #e6e2d8;
+            --dark:         #121214;
+            --dark-2:       #1b1b1f;
+            --shadow-sm:    0 1px 3px rgba(20,20,15,0.06), 0 1px 2px rgba(20,20,15,0.04);
+            --shadow-md:    0 8px 24px rgba(20,20,15,0.08), 0 2px 8px rgba(20,20,15,0.05);
+            --shadow-lg:    0 24px 50px rgba(20,20,15,0.12), 0 10px 20px rgba(20,20,15,0.06);
+            --r-sm: 12px; --r-md: 20px; --r-lg: 26px; --r-pill: 100px;
+            --font-display: 'Bricolage Grotesque', 'Inter', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-body);
             background: var(--bg);
-            color: var(--text-primary);
+            color: var(--ink);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* ── Navbar ─────────────────────────────────────────── */
+        h1, h2, h3, .section-title, .aboutme-heading, .about-headline {
+            font-family: var(--font-display);
+        }
+
+        /* ── Navbar (floating capsule) ────────────────────────── */
         .navbar {
             position: fixed;
-            inset: 0 0 auto 0;
+            top: 1.1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 2.4rem);
+            max-width: 1180px;
             z-index: 1000;
-            padding: 1.1rem 2.5rem;
+            padding: 0.6rem 0.6rem 0.6rem 1.6rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(245,247,252,0.82);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            background: rgba(255,255,255,0.72);
+            border: 1px solid var(--border);
+            border-radius: var(--r-pill);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: box-shadow 0.3s, background 0.3s;
         }
         .navbar.scrolled {
-            border-bottom-color: var(--border);
-            box-shadow: 0 1px 20px rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.92);
+            box-shadow: var(--shadow-md);
         }
         .nav-logo {
-            font-size: 1.05rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
             font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            color: var(--ink);
         }
-        .nav-logo span { color: var(--accent); }
+        .nav-logo span { color: var(--accent-deep); }
 
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links { display: flex; gap: 1.9rem; list-style: none; }
         .nav-links a {
             text-decoration: none;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             font-weight: 500;
-            color: var(--text-muted);
+            color: var(--ink-soft);
             transition: color 0.2s;
         }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover { color: var(--accent-deep); }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.55rem 1.25rem;
+            background: var(--ink);
+            color: var(--bg);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--r-pill);
+            transition: background 0.22s, transform 0.22s;
+        }
+        .nav-cta:hover { background: var(--accent-deep); transform: translateY(-1px); }
 
         /* ── Hero ───────────────────────────────────────────── */
         .hero {
@@ -83,19 +111,27 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(145deg, #f0f4ff 0%, #f5f7fc 40%, #edf3ff 100%);
+            background: var(--bg);
         }
 
-        /* subtle grid overlay */
-        .hero::before {
-            content: '';
+        .hero-orb {
             position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
-            background-size: 48px 48px;
+            border-radius: 50%;
+            filter: blur(90px);
             pointer-events: none;
+            z-index: 0;
+        }
+        .hero-orb-1 {
+            width: 480px; height: 480px;
+            top: -140px; left: -120px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.55;
+        }
+        .hero-orb-2 {
+            width: 420px; height: 420px;
+            bottom: -160px; right: -100px;
+            background: radial-gradient(circle, var(--accent-deep) 0%, transparent 70%);
+            opacity: 0.28;
         }
 
         .hero-content {
@@ -106,42 +142,61 @@
         }
 
         .hero-eyebrow {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            letter-spacing: 0.08em;
-            margin-bottom: 0.4rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.42rem 1.05rem;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.7);
+            border-radius: var(--r-pill);
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--ink-soft);
+            letter-spacing: 0.02em;
+            margin-bottom: 1.8rem;
             opacity: 0;
             transform: translateY(16px);
             animation: fadeUp 0.7s ease forwards 0.3s;
         }
+        .hero-eyebrow::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent-deep);
+            display: inline-block;
+        }
 
         .hero-name {
-            font-size: clamp(2.8rem, 9vw, 6.5rem);
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 10vw, 7.2rem);
             font-weight: 800;
             letter-spacing: -0.045em;
-            line-height: 1.0;
-            background: linear-gradient(130deg, #111827 0%, var(--accent) 55%, var(--purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 0.98;
+            color: var(--ink);
             opacity: 0;
             transform: translateY(16px);
             animation: fadeUp 0.7s ease forwards 0.5s;
         }
+        .hero-name .accent-word {
+            background: linear-gradient(120deg, var(--ink) 0%, var(--accent-deep) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
         .hero-subtitle {
-            margin-top: 1.1rem;
-            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            margin: 1.3rem auto 0;
+            max-width: 560px;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
             font-weight: 400;
-            color: var(--text-muted);
+            color: var(--muted);
             opacity: 0;
             transform: translateY(16px);
             animation: fadeUp 0.7s ease forwards 0.75s;
         }
 
         .hero-cta {
-            margin-top: 2.5rem;
+            margin-top: 2.4rem;
             display: flex;
             gap: 1rem;
             justify-content: center;
@@ -162,39 +217,34 @@
             gap: 0.45rem;
             opacity: 0;
             animation: fadeUp 0.7s ease forwards 1.3s;
+            z-index: 10;
         }
         .scroll-hint-text {
             font-size: 0.7rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--muted);
         }
         .scroll-hint-chevron {
             width: 16px;
             height: 16px;
-            border-right: 2px solid var(--text-muted);
-            border-bottom: 2px solid var(--text-muted);
+            border-right: 2px solid var(--muted);
+            border-bottom: 2px solid var(--muted);
             transform: rotate(45deg);
             animation: chevronBounce 1.6s ease-in-out infinite;
         }
 
-        /* ── Floating Objects ─────────────────────────────────
-           Two-layer approach:
-             .float-wrapper  → JS sets translate for mouse parallax
-             .float-inner    → CSS animation for vertical bobbing
-        ────────────────────────────────────────────────────── */
+        /* ── Floating Objects (fixed to viewport, persists across scroll) ── */
         .floating-objects {
-            position: absolute;
+            position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: 1;
+            z-index: 5;
         }
 
         .float-wrapper { position: absolute; }
+        .float-inner { opacity: 0.16; }
 
-        .float-inner { opacity: 0.13; }
-
-        /* Positions */
         .fw-1  { top:  8%; left:  4%; }
         .fw-2  { top: 12%; right: 6%; }
         .fw-3  { top: 33%; left:  2%; }
@@ -206,7 +256,6 @@
         .fw-9  { top: 68%; left: 17%; }
         .fw-10 { top: 78%; right: 18%; }
 
-        /* Staggered bobbing per wrapper */
         .fw-1  .float-inner { animation: bob 7.0s ease-in-out infinite 0.0s; }
         .fw-2  .float-inner { animation: bob 9.0s ease-in-out infinite -2.0s; }
         .fw-3  .float-inner { animation: bob 6.5s ease-in-out infinite -4.0s; }
@@ -218,35 +267,81 @@
         .fw-9  .float-inner { animation: bob 9.5s ease-in-out infinite -3.5s; }
         .fw-10 .float-inner { animation: bob 7.2s ease-in-out infinite -0.5s; }
 
+        /* ── Marquee strip ─────────────────────────────────────── */
+        .marquee-strip {
+            background: var(--ink);
+            border-top: 1px solid var(--dark-2);
+            border-bottom: 1px solid var(--dark-2);
+            overflow: hidden;
+            padding: 1.15rem 0;
+            position: relative;
+            z-index: 5;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            gap: 3rem;
+            animation: marquee 24s linear infinite;
+        }
+        .marquee-track span {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+            color: rgba(246,244,238,0.88);
+            white-space: nowrap;
+        }
+        .marquee-track span::after {
+            content: '\2726';
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
         /* ── Page Sections ───────────────────────────────────── */
         .section-wrap {
-            padding: 6rem 2rem;
-            max-width: 1100px;
+            padding: 6.5rem 2rem;
+            max-width: 1120px;
             margin: 0 auto;
         }
 
         .section-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--ink-soft);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.9rem;
+            border-radius: var(--r-pill);
+            margin-bottom: 1.1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent-deep);
         }
 
         .section-title {
-            font-size: clamp(1.7rem, 4vw, 2.4rem);
+            font-size: clamp(1.9rem, 4.4vw, 2.9rem);
             font-weight: 700;
             letter-spacing: -0.03em;
-            color: var(--text-primary);
+            color: var(--ink);
         }
 
-        .section-header { margin-bottom: 3rem; }
+        .section-header { margin-bottom: 3.2rem; }
 
         .divider {
             height: 1px;
             background: var(--border);
-            max-width: 1100px;
+            max-width: 1120px;
             margin: 0 auto;
         }
 
@@ -265,82 +360,78 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
-            padding: 0.55rem 1.1rem;
-            border-radius: 9px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            gap: 0.4rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: var(--r-pill);
+            font-size: 0.87rem;
+            font-weight: 600;
             text-decoration: none;
             cursor: pointer;
             border: none;
-            font-family: inherit;
+            font-family: var(--font-body);
             transition: all 0.22s ease;
         }
         .btn-primary {
-            background: var(--accent);
-            color: #fff;
+            background: var(--ink);
+            color: var(--bg);
         }
         .btn-primary:hover {
-            background: var(--accent-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(59,130,246,0.38);
+            background: var(--accent-deep);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         .btn-outline {
             background: transparent;
-            color: var(--accent);
-            border: 1.5px solid var(--accent);
+            color: var(--ink);
+            border: 1.5px solid var(--ink);
         }
         .btn-outline:hover {
-            background: var(--accent-light);
+            background: var(--ink);
+            color: var(--bg);
             transform: translateY(-1px);
         }
         .btn-ghost {
             background: transparent;
-            color: var(--text-muted);
+            color: var(--ink-soft);
             border: 1.5px solid var(--border);
         }
         .btn-ghost:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--ink);
+            color: var(--ink);
         }
 
-        /* ── About Me Section ───────────────────────────────── */
-        .aboutme-section { background: var(--bg); }
+        /* ── About Me / Intro Section ───────────────────────── */
+        .intro-section { background: var(--bg); }
 
-        .aboutme-heading {
-            font-size: clamp(2rem, 5vw, 3rem);
+        .intro-inner {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .intro-index {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 6vw, 4rem);
             font-weight: 800;
             letter-spacing: -0.04em;
-            line-height: 1.1;
-            color: var(--text-primary);
-            margin-bottom: 0.7rem;
-        }
-        .aboutme-heading .aboutme-accent {
-            background: linear-gradient(120deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .aboutme-heading-sub {
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            max-width: 520px;
-            margin-bottom: 2.5rem;
-        }
-        .aboutme-placeholder {
-            background: var(--bg-card);
-            border: 1.5px dashed var(--border);
-            border-radius: 18px;
-            padding: 3rem 2rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-style: italic;
-            line-height: 1.7;
-            text-align: center;
+            color: var(--border);
+            line-height: 1;
         }
 
-        /* ── About / Self-Promo Section ─────────────────────── */
+        .intro-text {
+            font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+            font-weight: 500;
+            color: var(--ink-soft);
+            line-height: 1.65;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 760px) {
+            .intro-inner { grid-template-columns: 1fr; gap: 1rem; }
+        }
+
+        /* ── What I Do Section ──────────────────────────────── */
         .about-section {
             background: var(--bg-card);
             border-top: 1px solid var(--border);
@@ -358,42 +449,41 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--ink-soft);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.9rem;
+            border-radius: var(--r-pill);
+            margin-bottom: 1.2rem;
         }
         .about-eyebrow::before {
             content: '';
-            display: inline-block;
-            width: 20px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 2px;
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent-deep);
         }
 
         .about-headline {
-            font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+            font-size: clamp(1.7rem, 3.6vw, 2.5rem);
             font-weight: 800;
             letter-spacing: -0.035em;
             line-height: 1.15;
-            color: var(--text-primary);
-            margin-bottom: 1.4rem;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
         }
         .about-headline .highlight {
-            background: linear-gradient(120deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            background: linear-gradient(180deg, transparent 62%, var(--accent) 62%);
+            padding: 0 0.06em;
         }
 
         .about-body {
             font-size: 0.975rem;
-            color: var(--text-muted);
+            color: var(--muted);
             line-height: 1.8;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.9rem;
         }
         .about-body p + p { margin-top: 0.9rem; }
 
@@ -401,20 +491,18 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            color: #fff;
+            padding: 0.8rem 1.6rem;
+            background: var(--ink);
+            color: var(--bg);
             font-size: 0.9rem;
             font-weight: 600;
             text-decoration: none;
-            border-radius: 12px;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-            box-shadow: 0 4px 18px rgba(59,130,246,0.3);
+            border-radius: var(--r-pill);
+            transition: transform 0.25s ease, background 0.25s ease;
         }
         .about-cta:hover {
+            background: var(--accent-deep);
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(59,130,246,0.42);
-            opacity: 0.93;
         }
         .about-cta svg { transition: transform 0.25s ease; }
         .about-cta:hover svg { transform: translateY(3px); }
@@ -429,38 +517,38 @@
         .skill-card {
             background: var(--bg);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.35rem 1.2rem;
+            border-radius: var(--r-lg);
+            padding: 1.5rem 1.3rem;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .skill-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-md);
-            border-color: rgba(59,130,246,0.25);
+            border-color: var(--accent-deep);
         }
 
         .skill-card-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: var(--accent-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.9rem;
         }
 
         .skill-card-title {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
         }
 
         .skill-card-desc {
-            font-size: 0.77rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.55;
         }
 
         @media (max-width: 860px) {
@@ -475,59 +563,57 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.4rem;
+            gap: 1.5rem;
         }
 
         .project-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.8rem;
-            position: relative;
+            border-radius: var(--r-lg);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
-        .project-card::after {
-            content: '';
-            position: absolute;
-            inset: 0 0 auto 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--purple));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 18px 18px 0 0;
-        }
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             box-shadow: var(--shadow-lg);
-            border-color: rgba(59,130,246,0.25);
+            border-color: var(--accent-deep);
         }
-        .project-card:hover::after { opacity: 1; }
+
+        .project-cover {
+            height: 120px;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent-deep) 100%);
+            position: relative;
+        }
+        .project-card:nth-child(2) .project-cover { background: linear-gradient(135deg, var(--accent-deep) 0%, var(--ink) 100%); }
+        .project-card:nth-child(3) .project-cover { background: linear-gradient(135deg, var(--ink) 0%, var(--muted) 100%); }
+
+        .project-body { padding: 1.7rem 1.8rem 1.8rem; }
 
         .project-tag {
             display: inline-block;
             font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.07em;
+            font-weight: 700;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 0.18rem 0.55rem;
-            border-radius: 100px;
-            margin-bottom: 0.8rem;
+            color: var(--ink);
+            background: var(--accent);
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--r-pill);
+            margin-bottom: 0.9rem;
         }
 
         .project-title {
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
             letter-spacing: -0.015em;
-            color: var(--text-primary);
+            color: var(--ink);
             margin-bottom: 0.5rem;
         }
 
         .project-desc {
             font-size: 0.875rem;
-            color: var(--text-muted);
+            color: var(--muted);
             line-height: 1.65;
             margin-bottom: 1.35rem;
         }
@@ -540,21 +626,22 @@
         .paper-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.75rem;
+            border-radius: var(--r-lg);
+            padding: 1.9rem;
             display: flex;
-            gap: 1.5rem;
+            gap: 1.6rem;
             align-items: flex-start;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .paper-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-lg);
-            border-color: rgba(59,130,246,0.25);
+            border-color: var(--accent-deep);
         }
 
         .paper-number {
-            font-size: 2.2rem;
+            font-family: var(--font-display);
+            font-size: 2.3rem;
             font-weight: 800;
             letter-spacing: -0.06em;
             color: var(--border);
@@ -565,59 +652,77 @@
 
         .paper-meta {
             font-size: 0.73rem;
-            color: var(--text-muted);
+            color: var(--muted);
             letter-spacing: 0.04em;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.4rem;
         }
 
         .paper-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--ink);
             line-height: 1.45;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.4rem;
         }
 
         .paper-authors {
             font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-bottom: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.9rem;
         }
 
         .paper-footer { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
 
         .paper-venue {
             font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 0.16rem 0.5rem;
-            border-radius: 100px;
+            font-weight: 700;
+            color: var(--ink);
+            background: var(--accent);
+            padding: 0.18rem 0.55rem;
+            border-radius: var(--r-pill);
             letter-spacing: 0.03em;
         }
 
         /* ── Contact Section ─────────────────────────────────── */
         .contacts-section {
-            background: linear-gradient(140deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
-            padding: 6rem 2rem 4rem;
+            background: var(--dark);
+            padding: 6.5rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .contacts-section::before {
+            content: '';
+            position: absolute;
+            width: 520px; height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-deep) 0%, transparent 70%);
+            opacity: 0.25;
+            top: -220px; right: -140px;
+            filter: blur(70px);
+            pointer-events: none;
         }
 
-        .contacts-inner { max-width: 1100px; margin: 0 auto; }
+        .contacts-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
 
-        .contacts-section .section-label { color: rgba(255,255,255,0.4); }
+        .contacts-section .section-label {
+            color: rgba(246,244,238,0.65);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.14);
+        }
         .contacts-section .section-title { color: #fff; }
 
         .contacts-sub {
-            margin-top: 0.5rem;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.5);
+            margin-top: 0.6rem;
+            font-size: 1.05rem;
+            color: rgba(246,244,238,0.55);
+            max-width: 480px;
         }
 
         .contacts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 1.1rem;
-            margin-top: 2.5rem;
+            margin-top: 2.8rem;
         }
 
         .contact-card {
@@ -626,29 +731,34 @@
             gap: 1rem;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 1.4rem;
+            border-radius: var(--r-lg);
+            padding: 1.5rem;
             text-decoration: none;
             color: #fff;
             transition: all 0.28s ease;
             backdrop-filter: blur(10px);
         }
         .contact-card:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.22);
+            background: var(--accent);
+            border-color: var(--accent);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.35);
         }
+        .contact-card:hover .contact-icon { background: rgba(21,21,26,0.12); }
+        .contact-card:hover .contact-icon svg { stroke: var(--ink); fill: var(--ink); }
+        .contact-card:hover .contact-label,
+        .contact-card:hover .contact-value { color: var(--ink); }
 
         .contact-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
             background: rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            transition: background 0.28s ease;
         }
 
         .contact-label {
@@ -656,41 +766,43 @@
             font-weight: 600;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.45);
+            color: rgba(246,244,238,0.45);
+            transition: color 0.28s ease;
         }
         .contact-value {
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.92rem;
+            font-weight: 600;
             color: #fff;
             margin-top: 0.1rem;
+            transition: color 0.28s ease;
         }
 
         /* ── Resources Section ───────────────────────────────── */
         .resources-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1.6rem;
         }
 
         .resource-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 18px;
+            border-radius: var(--r-lg);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .resource-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             box-shadow: var(--shadow-lg);
-            border-color: rgba(59,130,246,0.25);
+            border-color: var(--accent-deep);
         }
 
         .resource-preview {
             width: 100%;
             height: 320px;
-            background: #f0f2f8;
+            background: #efece2;
             border-bottom: 1px solid var(--border);
             position: relative;
             overflow: hidden;
@@ -701,7 +813,6 @@
             border: none;
             pointer-events: none;
         }
-        /* Overlay so the whole card is the click target, not just the footer */
         .resource-card-link {
             display: flex;
             flex-direction: column;
@@ -711,35 +822,36 @@
         }
 
         .resource-footer {
-            padding: 1.1rem 1.3rem 1.3rem;
+            padding: 1.2rem 1.4rem 1.4rem;
             display: flex;
             flex-direction: column;
-            gap: 0.45rem;
+            gap: 0.5rem;
             flex: 1;
         }
 
         .resource-type {
             font-size: 0.68rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 0.15rem 0.5rem;
-            border-radius: 100px;
+            color: var(--ink);
+            background: var(--accent);
+            padding: 0.17rem 0.55rem;
+            border-radius: var(--r-pill);
             align-self: flex-start;
         }
 
         .resource-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ink);
             line-height: 1.4;
         }
 
         .resource-desc {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: var(--muted);
             line-height: 1.55;
         }
 
@@ -750,25 +862,27 @@
             gap: 0.35rem;
             font-size: 0.8rem;
             font-weight: 600;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 0.38rem 0.8rem;
-            border-radius: 8px;
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--r-pill);
             align-self: flex-start;
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
         }
         .resource-card:hover .resource-open-btn {
-            background: var(--accent);
-            color: #fff;
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
         }
 
         .footer-bottom {
-            max-width: 1100px;
+            max-width: 1120px;
             margin: 4rem auto 0;
-            padding-top: 1.75rem;
+            padding-top: 1.9rem;
             border-top: 1px solid rgba(255,255,255,0.08);
             text-align: center;
-            color: rgba(255,255,255,0.25);
+            color: rgba(246,244,238,0.28);
             font-size: 0.78rem;
         }
 
@@ -788,12 +902,20 @@
             50%       { transform: rotate(45deg) translateY(6px); }
         }
 
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
         /* ── Responsive ──────────────────────────────────────── */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .projects-grid { grid-template-columns: 1fr; }
             .paper-card { flex-direction: column; gap: 0.6rem; }
             .paper-number { font-size: 1.5rem; }
+        }
+        @media (max-width: 520px) {
+            .nav-cta { display: none; }
         }
     </style>
 </head>
@@ -808,25 +930,23 @@
         <li><a href="#resources">Resources</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
+    <a href="#contact" class="nav-cta">Say Hi</a>
 </nav>
 
-<!-- ════════════════════════════ HERO ══════════════════════════════ -->
-<section class="hero" id="home">
-
-    <!-- Floating tech objects ───────────────────────────────────── -->
-    <div class="floating-objects" id="floatingObjects">
+<!-- Floating tech objects — fixed to the viewport, stays in place across the whole page as you scroll -->
+<div class="floating-objects" id="floatingObjects">
 
         <!-- 1 · Laptop -->
         <div class="float-wrapper fw-1">
             <div class="float-inner">
                 <svg width="90" height="76" viewBox="0 0 90 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="9" y="5" width="72" height="48" rx="5" stroke="#3b82f6" stroke-width="2.5"/>
-                    <rect x="16" y="12" width="58" height="34" rx="2" fill="#3b82f6" fill-opacity="0.12"/>
-                    <line x1="25" y1="23" x2="43" y2="23" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
-                    <line x1="25" y1="30" x2="58" y2="30" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
-                    <line x1="25" y1="37" x2="50" y2="37" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
-                    <path d="M0 57h90l-7 10H7L0 57z" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                    <line x1="36" y1="57" x2="54" y2="57" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+                    <rect x="9" y="5" width="72" height="48" rx="5" stroke="#15151a" stroke-width="2.5"/>
+                    <rect x="16" y="12" width="58" height="34" rx="2" fill="#15151a" fill-opacity="0.12"/>
+                    <line x1="25" y1="23" x2="43" y2="23" stroke="#15151a" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+                    <line x1="25" y1="30" x2="58" y2="30" stroke="#15151a" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+                    <line x1="25" y1="37" x2="50" y2="37" stroke="#15151a" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+                    <path d="M0 57h90l-7 10H7L0 57z" stroke="#15151a" stroke-width="2" fill="none"/>
+                    <line x1="36" y1="57" x2="54" y2="57" stroke="#15151a" stroke-width="2.5" stroke-linecap="round"/>
                 </svg>
             </div>
         </div>
@@ -835,9 +955,9 @@
         <div class="float-wrapper fw-2">
             <div class="float-inner">
                 <svg width="88" height="58" viewBox="0 0 88 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M26 12 L6 29 L26 46" stroke="#3b82f6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M62 12 L82 29 L62 46" stroke="#3b82f6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <line x1="54" y1="8" x2="34" y2="50" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M26 12 L6 29 L26 46" stroke="#15151a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M62 12 L82 29 L62 46" stroke="#15151a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="54" y1="8" x2="34" y2="50" stroke="#7f9a1f" stroke-width="2.5" stroke-linecap="round"/>
                 </svg>
             </div>
         </div>
@@ -846,17 +966,17 @@
         <div class="float-wrapper fw-3">
             <div class="float-inner">
                 <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="16" cy="16" r="6" fill="#3b82f6"/>
-                    <circle cx="80" cy="16" r="6" fill="#3b82f6"/>
-                    <circle cx="48" cy="48" r="9" fill="#3b82f6" fill-opacity="0.6"/>
-                    <circle cx="16" cy="80" r="6" fill="#3b82f6"/>
-                    <circle cx="80" cy="80" r="6" fill="#3b82f6"/>
-                    <line x1="16" y1="16" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="80" y1="16" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="16" y1="80" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="80" y1="80" x2="48" y2="48" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="16" y1="16" x2="80" y2="16" stroke="#3b82f6" stroke-width="1" opacity="0.3"/>
-                    <line x1="16" y1="80" x2="80" y2="80" stroke="#3b82f6" stroke-width="1" opacity="0.3"/>
+                    <circle cx="16" cy="16" r="6" fill="#15151a"/>
+                    <circle cx="80" cy="16" r="6" fill="#15151a"/>
+                    <circle cx="48" cy="48" r="9" fill="#15151a" fill-opacity="0.6"/>
+                    <circle cx="16" cy="80" r="6" fill="#15151a"/>
+                    <circle cx="80" cy="80" r="6" fill="#15151a"/>
+                    <line x1="16" y1="16" x2="48" y2="48" stroke="#15151a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="80" y1="16" x2="48" y2="48" stroke="#15151a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="16" y1="80" x2="48" y2="48" stroke="#15151a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="80" y1="80" x2="48" y2="48" stroke="#15151a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="16" y1="16" x2="80" y2="16" stroke="#15151a" stroke-width="1" opacity="0.3"/>
+                    <line x1="16" y1="80" x2="80" y2="80" stroke="#15151a" stroke-width="1" opacity="0.3"/>
                 </svg>
             </div>
         </div>
@@ -865,13 +985,13 @@
         <div class="float-wrapper fw-4">
             <div class="float-inner">
                 <svg width="110" height="76" viewBox="0 0 110 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="108" height="74" rx="9" stroke="#3b82f6" stroke-width="2"/>
-                    <rect x="1" y="1" width="108" height="22" rx="9" fill="#3b82f6" fill-opacity="0.1"/>
-                    <circle cx="16" cy="12" r="4.5" fill="#3b82f6" opacity="0.6"/>
-                    <circle cx="30" cy="12" r="4.5" fill="#3b82f6" opacity="0.4"/>
-                    <circle cx="44" cy="12" r="4.5" fill="#3b82f6" opacity="0.25"/>
-                    <text x="14" y="46" font-family="monospace" font-size="11" fill="#3b82f6" opacity="0.75">$ python main.py</text>
-                    <text x="14" y="60" font-family="monospace" font-size="9.5" fill="#3b82f6" opacity="0.4">&#9654; running model...</text>
+                    <rect x="1" y="1" width="108" height="74" rx="9" stroke="#15151a" stroke-width="2"/>
+                    <rect x="1" y="1" width="108" height="22" rx="9" fill="#15151a" fill-opacity="0.1"/>
+                    <circle cx="16" cy="12" r="4.5" fill="#15151a" opacity="0.6"/>
+                    <circle cx="30" cy="12" r="4.5" fill="#15151a" opacity="0.4"/>
+                    <circle cx="44" cy="12" r="4.5" fill="#15151a" opacity="0.25"/>
+                    <text x="14" y="46" font-family="monospace" font-size="11" fill="#15151a" opacity="0.75">$ python main.py</text>
+                    <text x="14" y="60" font-family="monospace" font-size="9.5" fill="#15151a" opacity="0.4">&#9654; running model...</text>
                 </svg>
             </div>
         </div>
@@ -880,11 +1000,11 @@
         <div class="float-wrapper fw-5">
             <div class="float-inner">
                 <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
-                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#8b5cf6" stroke-width="2" opacity="0.6" transform="rotate(60 42 42)"/>
-                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#3b82f6" stroke-width="2" opacity="0.55" transform="rotate(120 42 42)"/>
-                    <circle cx="42" cy="42" r="6" fill="#3b82f6"/>
-                    <circle cx="42" cy="4"  r="3.5" fill="#8b5cf6" opacity="0.8"/>
+                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#15151a" stroke-width="2" opacity="0.7"/>
+                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#7f9a1f" stroke-width="2" opacity="0.6" transform="rotate(60 42 42)"/>
+                    <ellipse cx="42" cy="42" rx="38" ry="13" stroke="#15151a" stroke-width="2" opacity="0.55" transform="rotate(120 42 42)"/>
+                    <circle cx="42" cy="42" r="6" fill="#15151a"/>
+                    <circle cx="42" cy="4"  r="3.5" fill="#7f9a1f" opacity="0.8"/>
                 </svg>
             </div>
         </div>
@@ -893,8 +1013,8 @@
         <div class="float-wrapper fw-6">
             <div class="float-inner">
                 <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M28 8 C18 8 18 18 18 24 C18 30 10 32 10 36 C10 40 18 42 18 48 C18 54 18 64 28 64" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" fill="none"/>
-                    <path d="M44 8 C54 8 54 18 54 24 C54 30 62 32 62 36 C62 40 54 42 54 48 C54 54 54 64 44 64" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M28 8 C18 8 18 18 18 24 C18 30 10 32 10 36 C10 40 18 42 18 48 C18 54 18 64 28 64" stroke="#7f9a1f" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M44 8 C54 8 54 18 54 24 C54 30 62 32 62 36 C62 40 54 42 54 48 C54 54 54 64 44 64" stroke="#7f9a1f" stroke-width="3" stroke-linecap="round" fill="none"/>
                 </svg>
             </div>
         </div>
@@ -903,16 +1023,16 @@
         <div class="float-wrapper fw-7">
             <div class="float-inner">
                 <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="36" cy="36" r="13" stroke="#3b82f6" stroke-width="2.5"/>
-                    <circle cx="36" cy="36" r="5"  fill="#3b82f6" fill-opacity="0.4"/>
-                    <rect x="32.5" y="3"  width="7" height="10" rx="2" fill="#3b82f6" opacity="0.6"/>
-                    <rect x="32.5" y="59" width="7" height="10" rx="2" fill="#3b82f6" opacity="0.6"/>
-                    <rect x="3"    y="32.5" width="10" height="7" rx="2" fill="#3b82f6" opacity="0.6"/>
-                    <rect x="59"   y="32.5" width="10" height="7" rx="2" fill="#3b82f6" opacity="0.6"/>
-                    <rect x="11"   y="10"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(45 15 15)"/>
-                    <rect x="53"   y="10"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(-45 57 15)"/>
-                    <rect x="11"   y="52"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(-45 15 57)"/>
-                    <rect x="53"   y="52"  width="8" height="10" rx="2" fill="#3b82f6" opacity="0.45" transform="rotate(45 57 57)"/>
+                    <circle cx="36" cy="36" r="13" stroke="#15151a" stroke-width="2.5"/>
+                    <circle cx="36" cy="36" r="5"  fill="#15151a" fill-opacity="0.4"/>
+                    <rect x="32.5" y="3"  width="7" height="10" rx="2" fill="#15151a" opacity="0.6"/>
+                    <rect x="32.5" y="59" width="7" height="10" rx="2" fill="#15151a" opacity="0.6"/>
+                    <rect x="3"    y="32.5" width="10" height="7" rx="2" fill="#15151a" opacity="0.6"/>
+                    <rect x="59"   y="32.5" width="10" height="7" rx="2" fill="#15151a" opacity="0.6"/>
+                    <rect x="11"   y="10"  width="8" height="10" rx="2" fill="#15151a" opacity="0.45" transform="rotate(45 15 15)"/>
+                    <rect x="53"   y="10"  width="8" height="10" rx="2" fill="#15151a" opacity="0.45" transform="rotate(-45 57 15)"/>
+                    <rect x="11"   y="52"  width="8" height="10" rx="2" fill="#15151a" opacity="0.45" transform="rotate(-45 15 57)"/>
+                    <rect x="53"   y="52"  width="8" height="10" rx="2" fill="#15151a" opacity="0.45" transform="rotate(45 57 57)"/>
                 </svg>
             </div>
         </div>
@@ -921,11 +1041,11 @@
         <div class="float-wrapper fw-8">
             <div class="float-inner">
                 <svg width="64" height="84" viewBox="0 0 64 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="32" cy="13" rx="27" ry="10" stroke="#3b82f6" stroke-width="2"/>
-                    <line x1="5"  y1="13" x2="5"  y2="61" stroke="#3b82f6" stroke-width="2"/>
-                    <line x1="59" y1="13" x2="59" y2="61" stroke="#3b82f6" stroke-width="2"/>
-                    <ellipse cx="32" cy="61" rx="27" ry="10" stroke="#3b82f6" stroke-width="2"/>
-                    <ellipse cx="32" cy="37" rx="27" ry="10" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
+                    <ellipse cx="32" cy="13" rx="27" ry="10" stroke="#15151a" stroke-width="2"/>
+                    <line x1="5"  y1="13" x2="5"  y2="61" stroke="#15151a" stroke-width="2"/>
+                    <line x1="59" y1="13" x2="59" y2="61" stroke="#15151a" stroke-width="2"/>
+                    <ellipse cx="32" cy="61" rx="27" ry="10" stroke="#15151a" stroke-width="2"/>
+                    <ellipse cx="32" cy="37" rx="27" ry="10" stroke="#15151a" stroke-width="1.5" opacity="0.4"/>
                 </svg>
             </div>
         </div>
@@ -934,19 +1054,19 @@
         <div class="float-wrapper fw-9">
             <div class="float-inner">
                 <svg width="80" height="68" viewBox="0 0 80 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="40" cy="60" r="6"   fill="#3b82f6"/>
-                    <circle cx="10" cy="28" r="5"   fill="#3b82f6" opacity="0.6"/>
-                    <circle cx="70" cy="28" r="5"   fill="#3b82f6" opacity="0.6"/>
-                    <circle cx="40" cy="8"  r="5"   fill="#8b5cf6" opacity="0.65"/>
-                    <circle cx="25" cy="48" r="3.5" fill="#3b82f6" opacity="0.4"/>
-                    <circle cx="55" cy="48" r="3.5" fill="#3b82f6" opacity="0.4"/>
-                    <line x1="40" y1="60" x2="10" y2="28" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="40" y1="60" x2="70" y2="28" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="10" y1="28" x2="40" y2="8"  stroke="#3b82f6" stroke-width="1.4" opacity="0.4"/>
-                    <line x1="70" y1="28" x2="40" y2="8"  stroke="#3b82f6" stroke-width="1.4" opacity="0.4"/>
-                    <line x1="10" y1="28" x2="70" y2="28" stroke="#3b82f6" stroke-width="1.2" opacity="0.3"/>
-                    <line x1="40" y1="60" x2="25" y2="48" stroke="#3b82f6" stroke-width="1"   opacity="0.35"/>
-                    <line x1="40" y1="60" x2="55" y2="48" stroke="#3b82f6" stroke-width="1"   opacity="0.35"/>
+                    <circle cx="40" cy="60" r="6"   fill="#15151a"/>
+                    <circle cx="10" cy="28" r="5"   fill="#15151a" opacity="0.6"/>
+                    <circle cx="70" cy="28" r="5"   fill="#15151a" opacity="0.6"/>
+                    <circle cx="40" cy="8"  r="5"   fill="#7f9a1f" opacity="0.65"/>
+                    <circle cx="25" cy="48" r="3.5" fill="#15151a" opacity="0.4"/>
+                    <circle cx="55" cy="48" r="3.5" fill="#15151a" opacity="0.4"/>
+                    <line x1="40" y1="60" x2="10" y2="28" stroke="#15151a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="40" y1="60" x2="70" y2="28" stroke="#15151a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="10" y1="28" x2="40" y2="8"  stroke="#15151a" stroke-width="1.4" opacity="0.4"/>
+                    <line x1="70" y1="28" x2="40" y2="8"  stroke="#15151a" stroke-width="1.4" opacity="0.4"/>
+                    <line x1="10" y1="28" x2="70" y2="28" stroke="#15151a" stroke-width="1.2" opacity="0.3"/>
+                    <line x1="40" y1="60" x2="25" y2="48" stroke="#15151a" stroke-width="1"   opacity="0.35"/>
+                    <line x1="40" y1="60" x2="55" y2="48" stroke="#15151a" stroke-width="1"   opacity="0.35"/>
                 </svg>
             </div>
         </div>
@@ -955,19 +1075,25 @@
         <div class="float-wrapper fw-10">
             <div class="float-inner">
                 <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 8 L8 8 L8 60 L22 60"  stroke="#3b82f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    <path d="M46 8 L60 8 L60 60 L46 60" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M22 8 L8 8 L8 60 L22 60"  stroke="#15151a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M46 8 L60 8 L60 60 L46 60" stroke="#15151a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                 </svg>
             </div>
         </div>
 
-    </div><!-- /floating-objects -->
+</div><!-- /floating-objects -->
+
+<!-- ════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero" id="home">
+
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
 
     <!-- Hero text -->
     <div class="hero-content">
-        <p class="hero-eyebrow">I am</p>
-        <h1 class="hero-name">Shashwat Kansara</h1>
-        <p class="hero-subtitle">Welcome to my personal website!</p>
+        <p class="hero-eyebrow">Student &middot; Builder &middot; Researcher</p>
+        <h1 class="hero-name">Shashwat <span class="accent-word">Kansara</span></h1>
+        <p class="hero-subtitle">I build fast, secure, full-stack products &mdash; and publish research on the side.</p>
         <div class="hero-cta">
             <a href="#projects" class="btn btn-primary">View Projects</a>
             <a href="#contact"  class="btn btn-ghost">Get in Touch</a>
@@ -980,23 +1106,42 @@
     </div>
 </section>
 
+<!-- ════════════════════════ MARQUEE STRIP ═════════════════════════ -->
+<div class="marquee-strip">
+    <div class="marquee-track">
+        <span>Full-Stack Development</span>
+        <span>Cloud Security</span>
+        <span>Quantitative Finance</span>
+        <span>Database Architecture</span>
+        <span>Research</span>
+        <span>International Markets</span>
+        <span>Full-Stack Development</span>
+        <span>Cloud Security</span>
+        <span>Quantitative Finance</span>
+        <span>Database Architecture</span>
+        <span>Research</span>
+        <span>International Markets</span>
+    </div>
+</div>
+
 <!-- ════════════════════════ ABOUT ME ══════════════════════════════ -->
-<section class="aboutme-section">
+<section class="intro-section">
     <div class="section-wrap">
-        <div class="reveal">
-            <h2 class="aboutme-heading">
-                About Me<br>
-            </h2>
-        </div>
-        <div class="aboutme-placeholder reveal">
-            ✏️ &nbsp; Studied in the International Baccalaureate Diploma Program, with a STEM-based interest. I am strongly interested 
-            in the fields of cloud security, quantitative finance, and international markets. I have built projects which are soon to be published, as due to academic integrity, it may take a while to post them. I regularly code and make effective resources for 
-            my viewers. Checkout the Resources section for more! 
+        <div class="intro-inner">
+            <div class="reveal">
+                <div class="intro-index">01 &mdash; About</div>
+            </div>
+            <div class="intro-text reveal">
+                Studied in the International Baccalaureate Diploma Program, with a STEM-based interest. I am strongly interested
+                in the fields of cloud security, quantitative finance, and international markets. I have built projects which are
+                soon to be published, as due to academic integrity, it may take a while to post them. I regularly code and make
+                effective resources for my viewers &mdash; check out the Resources section for more.
+            </div>
         </div>
     </div>
 </section>
 
-<!-- ════════════════════════ ABOUT / SELF-PROMO ════════════════════ -->
+<!-- ════════════════════════ WHAT I DO ═════════════════════════════ -->
 <section class="about-section">
     <div class="section-wrap">
         <div class="about-inner">
@@ -1040,7 +1185,7 @@
 
                 <div class="skill-card">
                     <div class="skill-card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15151a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
                     </div>
@@ -1050,7 +1195,7 @@
 
                 <div class="skill-card">
                     <div class="skill-card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15151a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
                         </svg>
                     </div>
@@ -1060,7 +1205,7 @@
 
                 <div class="skill-card">
                     <div class="skill-card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15151a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                         </svg>
                     </div>
@@ -1070,7 +1215,7 @@
 
                 <div class="skill-card">
                     <div class="skill-card-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15151a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
                         </svg>
                     </div>
@@ -1089,51 +1234,58 @@
     <div class="section-wrap">
         <div class="section-header reveal">
             <p class="section-label">Work</p>
-            <h2 class="section-title">Personal Projects</h2>
+            <h2 class="section-title">Selected Work</h2>
         </div>
 
         <div class="projects-grid">
 
             <div class="project-card reveal">
-                <span class="project-tag">Physics</span>
-                <h3 class="project-title">(Coming Soon!)</h3>
-                <p class="project-desc"></p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-primary">
-                        Publishing Soon!
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="#" class="btn btn-outline">GitHub</a>
+                <div class="project-cover"></div>
+                <div class="project-body">
+                    <span class="project-tag">Physics</span>
+                    <h3 class="project-title">(Coming Soon!)</h3>
+                    <p class="project-desc"></p>
+                    <div class="project-actions">
+                        <a href="#" class="btn btn-primary">
+                            Publishing Soon!
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="btn btn-outline">GitHub</a>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card reveal">
-                <span class="project-tag">Client-Requested Application</span>
-                <h3 class="project-title"> (Coming Soon!)</h3>
-                <p class="project-desc"></p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-primary">
-                        Publishing Soon!
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="#" class="btn btn-outline">GitHub</a>
+                <div class="project-cover"></div>
+                <div class="project-body">
+                    <span class="project-tag">Client-Requested Application</span>
+                    <h3 class="project-title"> (Coming Soon!)</h3>
+                    <p class="project-desc"></p>
+                    <div class="project-actions">
+                        <a href="#" class="btn btn-primary">
+                            Publishing Soon!
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="btn btn-outline">GitHub</a>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card reveal">
-                <span class="project-tag">Data Science</span>
-                <h3 class="project-title">(Coming Soon!)</h3>
-                
-                <div class="project-actions">
-                    <a href="#" class="btn btn-primary">
-                        Publishing Soon!
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="#" class="btn btn-outline">GitHub</a>
+                <div class="project-cover"></div>
+                <div class="project-body">
+                    <span class="project-tag">Data Science</span>
+                    <h3 class="project-title">(Coming Soon!)</h3>
+
+                    <div class="project-actions">
+                        <a href="#" class="btn btn-primary">
+                            Publishing Soon!
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#" class="btn btn-outline">GitHub</a>
+                    </div>
                 </div>
             </div>
-
-            
 
         </div>
     </div>
@@ -1146,7 +1298,7 @@
     <div class="section-wrap">
         <div class="section-header reveal">
             <p class="section-label">Publications</p>
-            <h2 class="section-title">Research Papers</h2>
+            <h2 class="section-title">Research &amp; Writing</h2>
         </div>
 
         <div class="papers-list">
@@ -1158,7 +1310,7 @@
                     <h3 class="paper-title"> (Publishing Soon!) </h3>
                     <p class="paper-authors">Author: Shashwat Kansara</p>
                     <div class="paper-footer">
-                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.18rem 0.65rem;">Read Paper</a> 
+                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.3rem 0.8rem;">Read Paper</a>
                     </div>
                 </div>
             </div>
@@ -1171,7 +1323,7 @@
                     <p class="paper-authors">Author: Shashwat Kansara</p>
                     <div class="paper-footer">
                         <span class="paper-venue">Conference / Journal Name</span>
-                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.18rem 0.65rem;">Read Paper</a>
+                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.3rem 0.8rem;">Read Paper</a>
                     </div>
                 </div>
             </div>
@@ -1184,7 +1336,7 @@
                     <p class="paper-authors">Shashwat Kansara, Co-Author Name, Co-Author Name, Co-Author Name</p>
                     <div class="paper-footer">
                         <span class="paper-venue">Conference / Journal Name</span>
-                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.18rem 0.65rem;">Read Paper</a>
+                        <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:0.3rem 0.8rem;">Read Paper</a>
                     </div>
                 </div>
             </div>
@@ -1199,7 +1351,7 @@
         <div class="section-header reveal">
             <p class="section-label">Academic</p>
             <h2 class="section-title">Helpful Resources</h2>
-            <p style="margin-top:0.5rem;font-size:0.95rem;color:var(--text-muted);">
+            <p style="margin-top:0.6rem;font-size:0.95rem;color:var(--muted);">
                 A curated collection of papers, guides, and references I find genuinely useful.
             </p>
         </div>
@@ -1242,42 +1394,6 @@
                 </a>
             </div>
 
-            <!-- Resource 3 -->
-            <div class="resource-card reveal">
-                <a href="YOUR_PDF_URL_3" target="_blank" rel="noopener noreferrer" class="resource-card-link">
-                    <div class="resource-preview">
-                        <iframe src="YOUR_PDF_URL_3" title="Resource 3 Preview"></iframe>
-                    </div>
-                    <div class="resource-footer">
-                        <span class="resource-type">Reference Guide</span>
-                        <div class="resource-title">Resource Title Three</div>
-                        <div class="resource-desc">A short note on why this resource is useful and what topic it covers.</div>
-                        <span class="resource-open-btn">
-                            Open PDF
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </span>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Resource 4 -->
-            <div class="resource-card reveal">
-                <a href="YOUR_PDF_URL_4" target="_blank" rel="noopener noreferrer" class="resource-card-link">
-                    <div class="resource-preview">
-                        <iframe src="YOUR_PDF_URL_4" title="Resource 4 Preview"></iframe>
-                    </div>
-                    <div class="resource-footer">
-                        <span class="resource-type">Textbook Chapter</span>
-                        <div class="resource-title">Resource Title Four</div>
-                        <div class="resource-desc">A short note on why this resource is useful and what topic it covers.</div>
-                        <span class="resource-open-btn">
-                            Open PDF
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </span>
-                    </div>
-                </a>
-            </div>
-
         </div>
     </div>
 </section>
@@ -1289,13 +1405,12 @@
     <div class="contacts-inner">
         <div class="section-header reveal">
             <p class="section-label">Get in Touch</p>
-            <h2 class="section-title">Contact</h2>
+            <h2 class="section-title">Let&rsquo;s Build Something Great</h2>
             <p class="contacts-sub">Feel free to reach out &mdash; I&rsquo;d love to connect.</p>
         </div>
 
         <div class="contacts-grid reveal">
 
-            <!-- ↓ Replace YOUR_LINKEDIN_URL with your full LinkedIn profile URL -->
             <a href="https://www.linkedin.com/in/shashwat-kansara-653852343/" class="contact-card" target="_blank" rel="noopener noreferrer">
                 <div class="contact-icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
@@ -1306,12 +1421,10 @@
                 </div>
                 <div>
                     <div class="contact-label">LinkedIn</div>
-                    <!-- ↓ Replace with your display name / handle -->
                     <div class="contact-value">Shashwat Kansara</div>
                 </div>
             </a>
 
-            <!-- ↓ Replace YOUR_GITHUB_URL with your GitHub profile URL -->
             <a href="https://github.com/shashwatKansara" class="contact-card" target="_blank" rel="noopener noreferrer">
                 <div class="contact-icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
@@ -1320,12 +1433,10 @@
                 </div>
                 <div>
                     <div class="contact-label">GitHub</div>
-                    <!-- ↓ Replace with your GitHub username -->
                     <div class="contact-value">Shashwat Kansara</div>
                 </div>
             </a>
 
-            <!-- ↓ Replace YOUR_EMAIL@EXAMPLE.COM with your actual email -->
             <a href="mailto:shashwatkansara@gmail.com" class="contact-card" style="min-width: 320px;">
                 <div class="contact-icon">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
